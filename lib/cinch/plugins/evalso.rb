@@ -10,7 +10,7 @@ module Cinch
             base_uri 'eval.so'
             format :json
 
-            match /eval ([\S]+) ?(.+)?/, method: :eval
+            match /eval ([\S]+) (.+)/, method: :eval
             match /langs/, method: :langs
 
             # Initializes the class and caches a list of languages from teh eval.so API
@@ -20,7 +20,7 @@ module Cinch
             end
 
             # Print out a list of languages
-            def langs
+            def langs(m)
                 m.reply 'Available languages: ' + @langs.keys.join(', ')
             end
             
