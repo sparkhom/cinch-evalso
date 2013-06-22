@@ -13,17 +13,11 @@ module Cinch
             match /eval ([\S]+) (.+)/, method: :eval
             match /langs/, method: :langs
 
-            # Initializes the class and caches a list of languages from teh eval.so API
-            def initialize(*args)
-                super
-                @langs = self.class.get('/api/languages')
-            end
-
             # Print out a list of languages
             # Params:
             # +m+:: +Cinch::Message+ object
             def langs(m)
-                m.reply 'Available languages: ' + @langs.keys.join(', ')
+                m.reply 'Available languages: ' + self.class.get('/api/languages').keys.join(', ')
             end
             
             # Evaluate code using the eval.so API
