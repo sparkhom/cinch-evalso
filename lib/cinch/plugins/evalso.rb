@@ -41,7 +41,7 @@ module Cinch
                    output = res['stdout']
                 end
 
-		output = output.gsub(/\n/,' ')
+                output = output.gsub(/\n/,' ')
 
                 # According to RFC 2812, the maximum line length on IRC is 510 characters, minus the carriage return
                 # In order to not spam the channel, if the output is greater than one line, convert it to a gist
