@@ -20,6 +20,8 @@ module Cinch
             end
 
             # Print out a list of languages
+            # Params:
+            # +m+:: +Cinch::Message+ object
             def langs(m)
                 m.reply 'Available languages: ' + @langs.keys.join(', ')
             end
