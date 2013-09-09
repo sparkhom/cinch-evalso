@@ -18,6 +18,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "cinch"
-  spec.add_dependency "httparty"
-  spec.add_dependency "gist"
+  spec.add_dependency "evalso"
 end
