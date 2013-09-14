@@ -1,5 +1,6 @@
 require 'cinch'
 require 'evalso'
+require 'gist'
 
 module Cinch
   module Plugins
@@ -13,7 +14,7 @@ module Cinch
       # Params:
       # +m+:: +Cinch::Message+ object
       def langs(m)
-        m.reply "Available languages: #{Evalso.languages.keys.join(', ')}"
+        m.safe_reply "Available languages: #{Evalso.languages.keys.join(', ')}"
       end
 
       # Evaluate code using the eval.so API
@@ -31,16 +32,18 @@ module Cinch
         output = output.gsub(/\n/,' ')
 
         # According to RFC 2812, the maximum command length on IRC is 512 characters.
-        # This makes our maximum message length 512 - '\r\n'.length - 'PRIVMSG #channelname :'.length
+        # This makes our maximum message length 512 - '\r\n'.length - the header information
         # In order to not spam the channel, if the output is greater than one line, convert it to a gist
-        if output.length > 500 - m.target.name.length
+        maxlength = 510 - (":" + " PRIVMSG " + " :").length - @bot.mask.to_s.length - m.target.name.length
+        maxlength = maxlength - ("#{m.user.name}: ").length if m.target.is_a? Channel
+        if output.length > maxlength
           output = Gist.gist(output, filename: 'result', description: code)['html_url']
         end
 
-        m.reply output, true
+        m.safe_reply output, true
       rescue Evalso::HTTPError => e
         # Eval.so returned an error, pass it on to IRC.
-        m.reply "Error: #{e.message}", true
+        m.safe_reply "Error: #{e.message}", true
       end
     end
   end
