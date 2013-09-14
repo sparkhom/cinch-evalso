@@ -4,8 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "cinch-evalso"
-  spec.version       = "0.1.4"
-  spec.authors       = ["Serguey Parkhomovsky"]
+  spec.version       = "0.2"
+  spec.authors       = ["Serguey Parkhomovsky", "Nick Markwell"]
   spec.email         = ["xindigo@gmail.com"]
   spec.homepage      = "https://github.com/sparkhom/cinch-evalso"
   spec.description   = %q{Cinch plugin to evaluate code with different languages using the eval.so API}

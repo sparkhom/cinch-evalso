@@ -15,7 +15,7 @@ module Cinch
       def langs(m)
         m.reply "Available languages: #{Evalso.languages.keys.join(', ')}"
       end
-      
+
       # Evaluate code using the eval.so API
       # Params:
       # +m+:: +Cinch::Message+ object
@@ -30,9 +30,10 @@ module Cinch
 
         output = output.gsub(/\n/,' ')
 
-        # According to RFC 2812, the maximum line length on IRC is 510 characters, minus the carriage return
+        # According to RFC 2812, the maximum command length on IRC is 512 characters.
+        # This makes our maximum message length 512 - '\r\n'.length - 'PRIVMSG #channelname :'.length
         # In order to not spam the channel, if the output is greater than one line, convert it to a gist
-        if output.length > 510
+        if output.length > 500 - m.channel.name.length
           output = Gist.gist(output, filename: 'result', description: code)['html_url']
         end
 
