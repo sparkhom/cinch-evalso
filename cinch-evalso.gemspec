@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "cinch"
   spec.add_dependency "evalso"
+  spec.add_dependency "gist"
 end
