@@ -33,7 +33,7 @@ module Cinch
         # According to RFC 2812, the maximum command length on IRC is 512 characters.
         # This makes our maximum message length 512 - '\r\n'.length - 'PRIVMSG #channelname :'.length
         # In order to not spam the channel, if the output is greater than one line, convert it to a gist
-        if output.length > 500 - m.channel.name.length
+        if output.length > 500 - m.target.name.length
           output = Gist.gist(output, filename: 'result', description: code)['html_url']
         end
 
